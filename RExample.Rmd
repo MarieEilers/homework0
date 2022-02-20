@@ -1,8 +1,11 @@
 ---
-title: "RExample"
+title: "R-Example"
 author: "Marie-Christin Eilers"
 date: "2/20/2022"
-output: distill::distill_article
+output: 
+  cleanrmd::html_document_clean:
+    theme: kacit
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
