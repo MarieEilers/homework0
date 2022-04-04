@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>R Grundlagen</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Ist R etwas für mich?</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Warum?</a>
+</li>
+<li>
+  <a href="gettingstarted.html">R Grundlagen</a>
+</li>
+<li>
+  <a href="Quellen.html">Quellen</a>
+</li>
+<li>
+  <a href="Spickzettel.html">Spickzettel</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:&lt;eilers.marie@web.de&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/MarieEilers/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">R Grundlagen</h1>
+
+</div>
+
+
+<p><br />
+</p>
+<div id="angstfreie-einführung---erste-schritte" class="section level2">
+<h2>Angstfreie Einführung - erste Schritte</h2>
+<p><br />
+</p>
+<div id="was-kostet-r" class="section level3">
+<h3>Was kostet R?</h3>
+<p>Open-source Software.<br />
+Kostenlos.<br />
+</p>
+</div>
+<div id="wo-herunterladen" class="section level3">
+<h3>Wo herunterladen?</h3>
+<p><em>1. Schritt</em>: R herunterladen:<img src="Rlogo.svg" width="30" /> <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a><br />
+<em>2. Schritt</em>: R Studio Desktop herunterladen: <img src="logo.svg" width="70" /> <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a><br />
+</p>
+</div>
+<div id="was-ist-r" class="section level3">
+<h3>Was ist R?</h3>
+<p>R ist eine Programmiersprache, die von Statistikern entwickelt wurde.<br />
+R ist wohl nicht vergleichbar mit anderen Software Engineering Softwares.</p>
+<p><em>Attraktiv an R ist:</em><br />
+- Skripte werden geschrieben - wiederholbar (reproducable work zu jedem Zeitpunkt)<br />
+Skripte können in jedem Texteditor gespeichert, bearbeitet und geteilt werden<br />
+Das kann ich in Statistica, SPSS oder Tableau nicht<br />
+Ich kann diese Skripte mit jedem und jeder weltweit einfach teilen. Ein großer großer Pluspunkt im Vergleich zu Point &amp; Click Software Dateien, die dann eben nicht jeder verwenden kann - sondern nur derjenige mit der entsprechenden Lizenz.<br />
+- Open Source<br />
+- Kostenlos<br />
+- Muliplattform (Linux, MacOs, Windows)<br />
+- große, weltweite, aktive Gemeinschaft von R Nutzern auf Stackoverflow - viele Ressourcen, um zu Suchen und Fragen zu stellen<br />
+- Add-Ons für neue Data Science Anwendungen von einer Community<br />
+</p>
+</div>
+<div id="aufbau-von" class="section level3">
+<h3>Aufbau von <img src="logo.svg" width="100" /></h3>
+<p>Man arbeitet nach der Installation von R und R Studio nur noch mit R Studio. D.h. nur dieses eine Programm starte ich.<br />
+R Studio ist eine sogenannte IDE (Integrated Development Environment).<br />
+D.h. hier kann ich schreiben, welche Auswertungen gefahren werden sollen (Editor), kann diese Auswertungen durchführen (Console), sehe welche Daten, Variablen, Verbindungen, usw. ich eingerichtet habe und sehe zu guter letzt auch meine Ergebnisse.</p>
+<p><img src="Bildschirmfoto%202022-03-06%20um%2019.43.51.png" width="639" alt="R Studio" /><br />
+</p>
+</div>
+<div id="ausführen-von-skripten" class="section level3">
+<h3>Ausführen von Skripten</h3>
+<p>Die bisher beschriebenen Zeilen Code wurden im Skriptfeld von R Studio eingetragen.<br />
+Dieses kann ich abspeichern, in anderen, “normalen” Texteditoren weiterbearbeiten und versenden, usw. Editoren arbeiten meist so, dass sie den Code besser lesbar machen. Sie geben einem automatische Vorschläge an, setzen Klammern automatisch und heben Formelteile farbig unterschiedlich hervor.<br />
+R Studio ist einer dieser Editoren.<br />
+Ein Vorteil von R Studio gegenüber anderen Editoren ist der, dass ich sehr einfach meinen Code testen kann, während ich ihn schreibe.<br />
+Ein neues Skript öffne ich über das + oben links im Editor. Dies kann benannt werden, indem ich auf Speichern klicke und ihm einen Namen gebe.<br />
+<br />
+Beispielhafte Eingabe erster Zeilen Code im R Skript:<br />
+a) Laden der Libraries, die ich nutzen möchte.<br />
+b) Datenimport<br />
+c) Grafik zur explorativen Datenanalyse<br />
+</p>
+<p><br />
+</p>
+<p><code>library(tidyverse)</code> # Laden des packages “tidyverse”<br />
+<code>library(dslabs)</code> # Laden des packages “dslabs”<br />
+<code>data("murders")</code> # Laden des Datensatzes “murders”<br />
+<code>murders %\&gt;% ggplot(aes(x=population, y=total, label=abb, color=region)) + geom_label()</code> # Erstellen einer ersten Grafik`</p>
+<p><br />
+</p>
+<div id="wie-sehe-ich-nun-zu-welchem-ergebnis-dieser-code-im-editor-führt" class="section level4">
+<h4>Wie sehe ich nun, zu welchem Ergebnis dieser Code im Editor führt?</h4>
+<p>Drücken im Skript selber von folgender Tastenkombi:<br />
+Command + Shift + Return<br />
+<em>oder</em><br />
+Ctrl + Shift + Enter<br />
+</p>
+<p><em>oder:</em><br />
+“Run” Button in R Studio<br />
+<img src="run%20.png" width="63" /><br />
+</p>
+<p>Die Code-Ergebnisse erscheinen nun in der Console unten links.<br />
+Der Graph erscheint in der View Pane rechts. Hier kann die Grafik gezoomt werden, exportiert werden, etc.<br />
+Welche Daten ich geladen habe, sehe ich oben rechts.<br />
+<img src="Ergebnisse%20erster%20Code.png" width="622" /></p>
+<p>Wenn ich nur eine Zeile Code im Editor laufen lassen möchte, dann lediglich die folgenden Tastenkombis drücken:<br />
+</p>
+<p>Command + Return<br />
+<em>oder</em><br />
+Ctrl + Enter<br />
+<br />
+</p>
+</div>
+</div>
+<div id="grundlegendes-in-r" class="section level3">
+<h3>Grundlegendes in R<br />
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>R ist case-sensitive, d.h. unterscheidet zwischen Groß- und Kleinschreibung.<br />
+
+<ul>
+<li>Variablen benenne ich daher nur in Kleinbuchstaben<br />
+</li>
+</ul></li>
+<li>R verwendet den Punkt . als Dezimaltrennzeichen<br />
+</li>
+<li>Fehlende Werte werden durch NA gekennzeichnet<br />
+</li>
+<li>Auskommentiert wird durch # Hashtag<br />
+</li>
+<li>Variablennamen sollten mit einem Buchstaben beginnen. Leerzeichen vermieden werden<br />
+</li>
+<li>Inhalt der Variable anzeigen: Variable schreiben und Code ausführen<br />
+</li>
+<li>Nur Daten oder Objekte in der Default Ansicht oben rechts, also Environment oder Daten, kann R verwenden.<br />
+<br />
+</li>
+</ol>
+</div>
+<div id="objekte" class="section level3">
+<h3>Objekte<br />
+</h3>
+<p>Objekte sind Datenstrukturen, also die Art und Weise wie Daten dargestellt werden. Zwei Arten sind von besonderer Bedeutung: Vektoren und Dataframes. Vektoren sind die technische Grundstruktur einer Variablen in R, Dataframes sind die R Struktur der Excel Tabelle. Eine neue Variante von Dataframes nennt sich tibble.<br />
+</p>
+<p>Vor dem Start in R, müssen wir einige Grundkonzepte kennenlernen.<br />
+Hier eignen sich bereits die mathematischen Gleichungen als Einstiegsszenario.<br />
+Ich möchte folgende Gleichung lösen.<br />
+<br />
+<span class="math inline">\(a x^{2}+b x+c=0\)</span><br />
+<br />
+Ich kann nach x lösen und erhalte:<br />
+<br />
+<span class="math inline">\(\frac{-b \pm \sqrt{b^{2}-4 a c}}{2 a}\)</span><br />
+<br />
+In einer Programmiersprache kann ich Variablen allgemein halten und somit bleibt auch die Gleichung allgemein.<br />
+So, ich fange an:<br />
+Ich möchte die Gleichung lösen für:<br />
+a = 1<br />
+b = 1<br />
+c = -1<br />
+<br />
+Im R Studio Editor gebe ich folgendes ein:</p>
+<pre class="r"><code>a &lt;- 1</code></pre>
+<pre class="r"><code>b &lt;- 1</code></pre>
+<pre class="r"><code>c &lt;- -1</code></pre>
+<p>Achtung: In R nutzt man diese Sympbole statt dem Gleichheitszeichen. Es ist ein “kleiner als” und ein “Minus” Zeichen. Dies ist der Standard der gelehrt wird. Offenbar geht in den meisten Gleichungen auch das = Zeichen.<br />
+</p>
+<p>Diesen Code lasse ich nun in der Console laufen.<br />
+Nichts passiert. Also nichts wird in der Console als Ergebnis angezeigt. Das ist gut! Hätte ich einen Fehler gemacht, so hätte ich hier eine Fehlermeldung erhalten.<br />
+<br />
+Nun möchte ich aber sehen, wie die Console mir etwas ausgibt. Also hier das erste Beispiel.<br />
+Schreiben von</p>
+<pre class="r"><code>a</code></pre>
+<p>Und ausführen des Codes führt zur Ausgabe von</p>
+<p><code>{r} a</code></p>
+<p>Diese Vorgehensweise entspricht derer, die ich weiterhin verwenden werde.<br />
+Eine explizitere Vorgehensweise wäre folgende, zur Ausgabe des Wertes der in Variable a gespeichert wurde:<br />
+</p>
+<pre class="r"><code>print(a)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Auch hier wird ausgegeben, dass a=1 ist.<br />
+<br />
+In diesem Beispiel ist a eine Variable. In R kann diese Variable ein Objekt sein. Später werde ich komplexere Objekte als Inhalte zeigen. Grundsätzlich ist der Code aber immer gleich: Ich tippe das Objekt in R ein, und erhalte als Ergebnis das, was im Objekt gespeichert ist.<br />
+</p>
+<p>Wenn ich alle Objekte sehen möchte, die in meinem Workspace gespeichert sind, gebe ich folgendes ein:</p>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<p>Im grafischen Interface von R, R Studio, befindet sich diese Anzeige auch stets sichtbar hier:<br />
+</p>
+<p><img src="Bilder/Objekte%20im%20Workspace.png" /><br />
+</p>
+<p>Um nun endlich die Lösung für die obige Gleichung zu berechnen, gebe ich diese in das Skript ein und lasse den Code ausführen. Das Ergebnis findet sich dann in der Console.<br />
+<code>(-b + sqrt(b^2 - 4*a*c))/(2*a)</code><br />
+und für die zweite:<br />
+<code>(-b - sqrt(b^2 - 4*a*c))/(2*a)</code><br />
+Das Ergebnis ist 0,62 bzw. 1,62.<br />
+<img src="Bilder/Ergebnis%20Formel.png" width="393" /><br />
+<br />
+</p>
+</div>
+<div id="funktionen" class="section level3">
+<h3>Funktionen</h3>
+<p>Ich habe einige vorprogrammierte Funktionen. <code>ls()</code>und <code>sqrt(x)</code> habe ich bereits verwendet. Meist muss in den Klammern nach der Funktionsangabe allerdings ein Eintrag zwischen den Klammern stehen. Zum Beispiel der Logarithmus von a, welches 1 war, ist 0.<br />
+</p>
+<pre class="r"><code>log(a)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p><br />
+Funktionen können auch “nested” sein, d.h. verschachtelt. Ein Beispiel:<br />
+</p>
+<pre class="r"><code>log(exp(1))</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p><br />
+Hier wird von innen nach außen berechnet. Also erst exp(1) und dann dieses Ergebnis log().<br />
+</p>
+<p>Es gibt viele pre-build Funktionen, so wie:<br />
+</p>
+<ul>
+<li>Pi:<br />
+</li>
+</ul>
+<pre class="r"><code>pi</code></pre>
+<pre><code>## [1] 3.141593</code></pre>
+<ul>
+<li>Unendlichkeit:<br />
+</li>
+</ul>
+<pre class="r"><code>Inf</code></pre>
+<pre><code>## [1] Inf</code></pre>
+<p><br />
+</p>
+<div id="hilfe" class="section level4">
+<h4>Hilfe</h4>
+<p>Die Hilfe gibt nützliche Informationen dazu, was zum Beispiel Funktionen für Argumente benötigen.<br />
+Beispiel<br />
+</p>
+<p><code>help(log)</code></p>
+<p><br />
+<img src="Bilder/Hilfe.png" /></p>
+<p><br />
+Die meisten Hilfethemen kann ich auch wie folgt abfragen:<br />
+</p>
+<p><code>?log</code><br />
+Und wenn ich wissen möchte, welche Argumente die Funktion benötigt, dann erfrage ich dies durch folgende Zeile:<br />
+</p>
+<pre class="r"><code>args(log)</code></pre>
+<pre><code>## function (x, base = exp(1)) 
+## NULL</code></pre>
+<p><br />
+Diese kann ich nun wie folgt anwenden für mein Bedürfnis:<br />
+</p>
+<p><code>log(100, 10)</code><br />
+oder ich kann auch schreiben:<br />
+</p>
+<p><code>log(x=100, base=10)</code><br />
+Wenn ich Operatoren abfrage, dann muss ich Anführungszeichen verwenden:<br />
+</p>
+<p><code>?"+"</code></p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="installieren-von-statistikmodulen-wenn-weitere-benötigt-werden" class="section level3">
+<h3>Installieren von Statistikmodulen, wenn weitere benötigt werden<br />
+</h3>
+<p>Frisch installiert bietet R nur einen kleinen Teil der Funktionen, die man insgesamt nutzen kann.<br />
+Die erste Lieferung nennt man: base R<br />
+Die extra Funktionalität kommt von externen Entwicklern. Es gibt hunderte dieser add-ons.<br />
+Da nicht jeder, jede Funktionalität benötigt, werden diese in Packages angeboten. Diese Packages sind sehr leicht innerhalb von R selber zu installieren.<br />
+</p>
+<p><br />
+</p>
+<div id="installation-über-code" class="section level4">
+<h4>Installation über Code:<br />
+</h4>
+<p>Ich kann packages über Codeeingabe im Skript, oder über das R Studio im Menü laden.</p>
+<p><em>So installiere ich ein Package namens dslabs per Code:</em></p>
+<p><img src="Bildschirmfoto%202022-03-06%20um%2021.50.40.png" width="400" /></p>
+<p>Diesen Code gebe ich im Skript ein:<br />
+<code>install.packages('dslabs')</code></p>
+<p><br />
+R installiert dann dieses package. Vorraussetzung ist eine Verbindung mit dem Internet.</p>
+<p>Wenn ich einmal ein package installiert habe, muss es nicht wieder installiert werden.<br />
+Ich muss es dann nur in meine Auswertung mit dem library() Befehl laden.<br />
+<br />
+<em>zwei Packages oder mehr zu installieren:</em></p>
+<p><code>install.packages("dslabs", "tidyverse")</code><br />
+</p>
+<p><br />
+</p>
+</div>
+<div id="installation-über-das-menü-von" class="section level4">
+<h4>Installation über das Menü von <img src="logo.svg" width="80" /></h4>
+<p>Die Statistik packages können auch über das Menü, und damit ohne Code installiert werden.<br />
+Tools – Install packages</p>
+<p><img src="Install%20packages%20IDE.png" width="333" /></p>
+<p>Erinnerung: Ich brauche die Packages nie wieder zu installieren. Trotzdem ist es hilfreich die Installation im Skript zu haben, falls man R neu installieren muss.<br />
+<em>Packages werden nicht in R Studio installiert, sondern in R selber.</em></p>
+<p>So kontrolliere ich, welche Statistik packages ich bereits installiert habe:<br />
+<code>installed.packages()</code><br />
+<br />
+</p>
+</div>
+<div id="nach-dem-installieren-von-statistik-software-muss-das-packet-in-die-laufende-auswertung-geladen-werden" class="section level4">
+<h4>Nach dem Installieren von Statistik Software muss das Packet in die laufende Auswertung geladen werden</h4>
+<p>Nun muss ich die package-Installation noch in meine laufende Auswertung (Session) laden. Hierzu gebe ich folgendes ein:</p>
+<pre class="r"><code>library(dslabs)</code></pre>
+<p><img src="load%20package.png" width="353" /><br />
+<br />
+</p>
+</div>
+</div>
+<div id="datensätze" class="section level3">
+<h3>Datensätze</h3>
+<p>Ich lade das package “datasets”.<br />
+</p>
+<p><code>install.packages("datasets")</code></p>
+<p><br />
+Und schaue welche Datensätze dieses Packet mir geliefert hat:<br />
+</p>
+<pre class="r"><code>data()</code></pre>
+<p><br />
+Um mir eins anzuschauen, gebe ich den Namen ein. Es wird nun angezeigt.<br />
+</p>
+<pre class="r"><code>CO2</code></pre>
+<pre><code>##    Plant        Type  Treatment conc uptake
+## 1    Qn1      Quebec nonchilled   95   16.0
+## 2    Qn1      Quebec nonchilled  175   30.4
+## 3    Qn1      Quebec nonchilled  250   34.8
+## 4    Qn1      Quebec nonchilled  350   37.2
+## 5    Qn1      Quebec nonchilled  500   35.3
+## 6    Qn1      Quebec nonchilled  675   39.2
+## 7    Qn1      Quebec nonchilled 1000   39.7
+## 8    Qn2      Quebec nonchilled   95   13.6
+## 9    Qn2      Quebec nonchilled  175   27.3
+## 10   Qn2      Quebec nonchilled  250   37.1
+## 11   Qn2      Quebec nonchilled  350   41.8
+## 12   Qn2      Quebec nonchilled  500   40.6
+## 13   Qn2      Quebec nonchilled  675   41.4
+## 14   Qn2      Quebec nonchilled 1000   44.3
+## 15   Qn3      Quebec nonchilled   95   16.2
+## 16   Qn3      Quebec nonchilled  175   32.4
+## 17   Qn3      Quebec nonchilled  250   40.3
+## 18   Qn3      Quebec nonchilled  350   42.1
+## 19   Qn3      Quebec nonchilled  500   42.9
+## 20   Qn3      Quebec nonchilled  675   43.9
+## 21   Qn3      Quebec nonchilled 1000   45.5
+## 22   Qc1      Quebec    chilled   95   14.2
+## 23   Qc1      Quebec    chilled  175   24.1
+## 24   Qc1      Quebec    chilled  250   30.3
+## 25   Qc1      Quebec    chilled  350   34.6
+## 26   Qc1      Quebec    chilled  500   32.5
+## 27   Qc1      Quebec    chilled  675   35.4
+## 28   Qc1      Quebec    chilled 1000   38.7
+## 29   Qc2      Quebec    chilled   95    9.3
+## 30   Qc2      Quebec    chilled  175   27.3
+## 31   Qc2      Quebec    chilled  250   35.0
+## 32   Qc2      Quebec    chilled  350   38.8
+## 33   Qc2      Quebec    chilled  500   38.6
+## 34   Qc2      Quebec    chilled  675   37.5
+## 35   Qc2      Quebec    chilled 1000   42.4
+## 36   Qc3      Quebec    chilled   95   15.1
+## 37   Qc3      Quebec    chilled  175   21.0
+## 38   Qc3      Quebec    chilled  250   38.1
+## 39   Qc3      Quebec    chilled  350   34.0
+## 40   Qc3      Quebec    chilled  500   38.9
+## 41   Qc3      Quebec    chilled  675   39.6
+## 42   Qc3      Quebec    chilled 1000   41.4
+## 43   Mn1 Mississippi nonchilled   95   10.6
+## 44   Mn1 Mississippi nonchilled  175   19.2
+## 45   Mn1 Mississippi nonchilled  250   26.2
+## 46   Mn1 Mississippi nonchilled  350   30.0
+## 47   Mn1 Mississippi nonchilled  500   30.9
+## 48   Mn1 Mississippi nonchilled  675   32.4
+## 49   Mn1 Mississippi nonchilled 1000   35.5
+## 50   Mn2 Mississippi nonchilled   95   12.0
+## 51   Mn2 Mississippi nonchilled  175   22.0
+## 52   Mn2 Mississippi nonchilled  250   30.6
+## 53   Mn2 Mississippi nonchilled  350   31.8
+## 54   Mn2 Mississippi nonchilled  500   32.4
+## 55   Mn2 Mississippi nonchilled  675   31.1
+## 56   Mn2 Mississippi nonchilled 1000   31.5
+## 57   Mn3 Mississippi nonchilled   95   11.3
+## 58   Mn3 Mississippi nonchilled  175   19.4
+## 59   Mn3 Mississippi nonchilled  250   25.8
+## 60   Mn3 Mississippi nonchilled  350   27.9
+## 61   Mn3 Mississippi nonchilled  500   28.5
+## 62   Mn3 Mississippi nonchilled  675   28.1
+## 63   Mn3 Mississippi nonchilled 1000   27.8
+## 64   Mc1 Mississippi    chilled   95   10.5
+## 65   Mc1 Mississippi    chilled  175   14.9
+## 66   Mc1 Mississippi    chilled  250   18.1
+## 67   Mc1 Mississippi    chilled  350   18.9
+## 68   Mc1 Mississippi    chilled  500   19.5
+## 69   Mc1 Mississippi    chilled  675   22.2
+## 70   Mc1 Mississippi    chilled 1000   21.9
+## 71   Mc2 Mississippi    chilled   95    7.7
+## 72   Mc2 Mississippi    chilled  175   11.4
+## 73   Mc2 Mississippi    chilled  250   12.3
+## 74   Mc2 Mississippi    chilled  350   13.0
+## 75   Mc2 Mississippi    chilled  500   12.5
+## 76   Mc2 Mississippi    chilled  675   13.7
+## 77   Mc2 Mississippi    chilled 1000   14.4
+## 78   Mc3 Mississippi    chilled   95   10.6
+## 79   Mc3 Mississippi    chilled  175   18.0
+## 80   Mc3 Mississippi    chilled  250   17.9
+## 81   Mc3 Mississippi    chilled  350   17.9
+## 82   Mc3 Mississippi    chilled  500   17.9
+## 83   Mc3 Mississippi    chilled  675   18.9
+## 84   Mc3 Mississippi    chilled 1000   19.9</code></pre>
+</div>
+<div id="motivation-für-die-einführung" class="section level3">
+<h3>Motivation für die Einführung</h3>
+<p>Die nachfolgenden ersten Übungen beziehen sich auf die Erschießungs-Tötungsraten der USA - ich möchte bestimmen wohin ich ziehen könnte wegen dem Job, und wohin ich lieber nicht umziehen würde.</p>
+<p>Grundsätzlich gilt für die Arbeit mit Daten:<br />
+- Wenn ich Daten sehe, bin ich eher erst einmal kritisch abwartend. Schau welche Daten gezeigt werden und vor allem welche nicht gezeigt werden. - kritisch und neugierig sein - große Notwendigkeit der Interaktivität und von schnellen flexibeln Analysen im Feld Data Science</p>
+</div>
+<div id="datentypen" class="section level3">
+<h3>Datentypen</h3>
+<p>Bestimmung der Klasse der Daten:<br />
+</p>
+<pre class="r"><code>class(a)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p><br />
+Variable a ist also numerisch.<br />
+oder:<br />
+</p>
+<pre class="r"><code>class(ls)</code></pre>
+<pre><code>## [1] &quot;function&quot;</code></pre>
+<p>ls() ist also eine Funktion<br />
+<br />
+Bislang haben wir nur einen Wert in einer Variablen gespeichert. Aber in der praktischen Arbeit kommen solche Beispiele selten vor. Nun zeige ich die Datentypen, mit denen tatsächlich gearbeitet wird:<br />
+</p>
+<p><strong>Data Frame</strong><br />
+Diese kann ich mir wie eine normale Excel Tabelle vorstellen. Die Spalten stehen für Variablen und die Zeilen für Beobachtungen.<br />
+In einem Data Frame kann ich verschiedene Datentypen in einem Datensatz vereinen. Das entspricht dem realen Vorliegen der meisten Daten. Folgender Datensatz entspricht einem Data Frame. Dieser ist im Beispielpackage bereits enthalten:<br />
+<code>install.packages("dslabs")</code><br />
+Laden des packages:<br />
+</p>
+<pre class="r"><code>library(dslabs)</code></pre>
+<p>Laden der Daten:<br />
+</p>
+<pre class="r"><code>data(&quot;murders&quot;)</code></pre>
+<p>Abfrage des Datentyps:<br />
+</p>
+<pre class="r"><code>class(murders)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>Ich sehe, es ist tatsächlich ein Data Frame.<br />
+<em>R ist eine Objektbezogene Sprache. Es wurden also Daten im Objekt “murders” gespeichert.</em> Dies ist ein wichtiger Hinweis. Ich werde später sehen, dass es sehr üblich ist, Daten in Objekten zu speichern und mit diesen Objekten die Analyse fortzusetzen.<br />
+</p>
+<p>Was für eine Struktur hat der Datensatz?<br />
+</p>
+<pre class="r"><code>str(murders)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    51 obs. of  5 variables:
+##  $ state     : chr  &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
+##  $ abb       : chr  &quot;AL&quot; &quot;AK&quot; &quot;AZ&quot; &quot;AR&quot; ...
+##  $ region    : Factor w/ 4 levels &quot;Northeast&quot;,&quot;South&quot;,..: 2 4 4 2 4 4 1 2 2 2 ...
+##  $ population: num  4779736 710231 6392017 2915918 37253956 ...
+##  $ total     : num  135 19 232 93 1257 ...</code></pre>
+<p>Data-Frame<br />
+51 Beobachtungen mit 5 Variablen.<br />
+Die Variablen heißen: state, abb, region, population, total<br />
+Es werden einige Inhalte der Variablen dargestellt.<br />
+</p>
+<p>Über die head() Funktion kann ich mir die ersten 6 Zeilen des Data Frames anzeigen lassen:<br />
+</p>
+<pre class="r"><code>head(murders)</code></pre>
+<pre><code>##        state abb region population total
+## 1    Alabama  AL  South    4779736   135
+## 2     Alaska  AK   West     710231    19
+## 3    Arizona  AZ   West    6392017   232
+## 4   Arkansas  AR  South    2915918    93
+## 5 California  CA   West   37253956  1257
+## 6   Colorado  CO   West    5029196    65</code></pre>
+<p><br />
+</p>
+<div id="wie-ich-mit-variablen-in-r-arbeite" class="section level4">
+<h4>Wie ich mit Variablen in R arbeite:</h4>
+<p>Und zwar mutet das erst einmal komisch an. Wenn ich in R die Variablen verarbeite, also in Formeln beispielsweise verwende, oder in einer Grafik, so spreche ich die Variable immer mit dem Datensatz, dem Dollar Zeichen und dem Variablennamen an.<br />
+</p>
+<p><code>murders$state</code>ist ein Beispiel um die Variable state zu verwenden.<br />
+</p>
+<p>Ich muss häufiger beim Arbeiten mit den Daten, nach den genauen Variablennamen schauen. Eine kurze Möglichkeit bietet R über folgende Abfrage:<br />
+</p>
+<pre class="r"><code>names(murders)</code></pre>
+<pre><code>## [1] &quot;state&quot;      &quot;abb&quot;        &quot;region&quot;     &quot;population&quot; &quot;total&quot;</code></pre>
+<p>Eine einzige Variable in diesem Datensatz ist keine Zahl, sondern ein <strong>Vektor</strong>. Rein technisch wäre auch unsere Variable a=1 ein Vektor. Allerdings stelle ich mir eher eine Variable mit vielen Einträgen/Beobachtungen unter einem Vektor vor.<br />
+Die Funktion length() gibt die Anzahl der Einträge im Vektor aus.<br />
+</p>
+<pre class="r"><code>length(murders$state)</code></pre>
+<pre><code>## [1] 51</code></pre>
+<p>Es gibt numerische, character, logische (TRUE oder FALSE) und factors Vektoren in R. Factors sind Variablen, die kategorische Daten speichern. Es gibt zum Beispiel im murders Datensatz nur 4 Regionen, also 4 Kategorien. Jeder Staat gehört zu einer dieser Kategorien. Ich kann diese Kategorien in R erfragen indem ich folgende Funktion verwende:<br />
+</p>
+<pre class="r"><code>levels(murders$region)</code></pre>
+<pre><code>## [1] &quot;Northeast&quot;     &quot;South&quot;         &quot;North Central&quot; &quot;West&quot;</code></pre>
+<p><br />
+Warum R das anbietet? R speichert zu jeder Kategorie im Hintergrund eine Ganzzahl. Ich denke, dass kennt jeder der bereits mit SPSS gearbeitet hat.<br />
+Erkennen kann niemand von außen ob die Variable eine Textvariable ist oder ein Factor. Dies muss erfragt werden.<br />
+</p>
+</div>
+</div>
+<div id="vektoren" class="section level3">
+<h3>Vektoren</h3>
+<p>Die kleinste Basiseinheit in R, sind Vektoren. Auch große Datensätze können in der Regel in Vektoren heruntergebrochen werden. Jede Spalte ist in der Regel ein Vektor. Hier nun eine kurze Einführung, wie Vektoren kreiirt werden. Ist unwichtig, denn meist arbeite ich mit “fertigen” Datensätzen. Aber kleine Fingerübungen sind ja nicht schädlich :-).<br />
+</p>
+<div id="vektor-kreiiren" class="section level4">
+<h4>Vektor kreiiren</h4>
+<p>Ich gebe Daten für einen numerischen Vektor wie folgt ein:<br />
+</p>
+<pre class="r"><code>anzahl &lt;- c(5, 4, 3)</code></pre>
+<p>Das c steht für “concatenate” oder “combine”.<br />
+Einen Textvektor gebe ich wie folgt ein:<br />
+</p>
+<pre class="r"><code>spiele &lt;- c(&quot;Handball&quot;, &quot;Fußball&quot;, &quot;Judo&quot;)</code></pre>
+<p>Hierbei die "" beachten.<br />
+Ich kann die beiden Vektoren auch bereits kombiniert eingeben:<br />
+</p>
+<pre class="r"><code>spielanzahl &lt;- c(Handball=5, Fußball=4, Judo=3)</code></pre>
+<p>Ich schaue was dabei rauskommt:<br />
+</p>
+<pre class="r"><code>spielanzahl</code></pre>
+<pre><code>## Handball  Fußball     Judo 
+##        5        4        3</code></pre>
+<p>Ich kann das obige auch über die names() Funktion erreichen:<br />
+</p>
+<pre class="r"><code>names(anzahl) &lt;- spiele</code></pre>
+<pre class="r"><code>anzahl</code></pre>
+<pre><code>## Handball  Fußball     Judo 
+##        5        4        3</code></pre>
+<p><br />
+</p>
+</div>
+<div id="sequenz" class="section level4">
+<h4>Sequenz<br />
+</h4>
+<p>Oft kreiert man offenbar auch Sequenzen. Das geht so:<br />
+</p>
+<pre class="r"><code>seq(1, 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p><br />
+</p>
+</div>
+<div id="subsetting" class="section level4">
+<h4>Subsetting<br />
+</h4>
+<p>Nun wird es wirklich praxisrelevant. Subsetting. D.h. wie picke ich mir bestimmte Spalten oder Zeilen für die weiteren Analysen heraus?<br />
+Hier, bitte nur die Spalte 2 verwenden. Dazu verwende ich die eckigen Klammern:<br />
+</p>
+<pre class="r"><code>anzahl[2]</code></pre>
+<pre><code>## Fußball 
+##       4</code></pre>
+<p>Um zwei oder mehr Spalten zu wählen, verwende ich wieder das c() von combine:<br />
+</p>
+<pre class="r"><code>anzahl[c(2,3)]</code></pre>
+<pre><code>## Fußball    Judo 
+##       4       3</code></pre>
+<p>Und schreibe ich das Minus davor, so wird diese Zeile ausgelassen:<br />
+</p>
+<pre class="r"><code>anzahl[-2]</code></pre>
+<pre><code>## Handball     Judo 
+##        5        3</code></pre>
+<p>Und ich kann natürlich auch Bedingungen abfragen:<br />
+</p>
+<pre class="r"><code>anzahl[anzahl&gt;4]</code></pre>
+<pre><code>## Handball 
+##        5</code></pre>
+<p>Möchte ich nun einen Dataframe ansprechen, so tue ich dies wie folgt:<br />
+Eine Variable:<br />
+</p>
+<pre class="r"><code>murders[[1]]</code></pre>
+<pre><code>##  [1] &quot;Alabama&quot;              &quot;Alaska&quot;               &quot;Arizona&quot;             
+##  [4] &quot;Arkansas&quot;             &quot;California&quot;           &quot;Colorado&quot;            
+##  [7] &quot;Connecticut&quot;          &quot;Delaware&quot;             &quot;District of Columbia&quot;
+## [10] &quot;Florida&quot;              &quot;Georgia&quot;              &quot;Hawaii&quot;              
+## [13] &quot;Idaho&quot;                &quot;Illinois&quot;             &quot;Indiana&quot;             
+## [16] &quot;Iowa&quot;                 &quot;Kansas&quot;               &quot;Kentucky&quot;            
+## [19] &quot;Louisiana&quot;            &quot;Maine&quot;                &quot;Maryland&quot;            
+## [22] &quot;Massachusetts&quot;        &quot;Michigan&quot;             &quot;Minnesota&quot;           
+## [25] &quot;Mississippi&quot;          &quot;Missouri&quot;             &quot;Montana&quot;             
+## [28] &quot;Nebraska&quot;             &quot;Nevada&quot;               &quot;New Hampshire&quot;       
+## [31] &quot;New Jersey&quot;           &quot;New Mexico&quot;           &quot;New York&quot;            
+## [34] &quot;North Carolina&quot;       &quot;North Dakota&quot;         &quot;Ohio&quot;                
+## [37] &quot;Oklahoma&quot;             &quot;Oregon&quot;               &quot;Pennsylvania&quot;        
+## [40] &quot;Rhode Island&quot;         &quot;South Carolina&quot;       &quot;South Dakota&quot;        
+## [43] &quot;Tennessee&quot;            &quot;Texas&quot;                &quot;Utah&quot;                
+## [46] &quot;Vermont&quot;              &quot;Virginia&quot;             &quot;Washington&quot;          
+## [49] &quot;West Virginia&quot;        &quot;Wisconsin&quot;            &quot;Wyoming&quot;</code></pre>
+<p>oder direkt über die Spaltenbezeichnung:<br />
+</p>
+<pre class="r"><code>murders$state</code></pre>
+<pre><code>##  [1] &quot;Alabama&quot;              &quot;Alaska&quot;               &quot;Arizona&quot;             
+##  [4] &quot;Arkansas&quot;             &quot;California&quot;           &quot;Colorado&quot;            
+##  [7] &quot;Connecticut&quot;          &quot;Delaware&quot;             &quot;District of Columbia&quot;
+## [10] &quot;Florida&quot;              &quot;Georgia&quot;              &quot;Hawaii&quot;              
+## [13] &quot;Idaho&quot;                &quot;Illinois&quot;             &quot;Indiana&quot;             
+## [16] &quot;Iowa&quot;                 &quot;Kansas&quot;               &quot;Kentucky&quot;            
+## [19] &quot;Louisiana&quot;            &quot;Maine&quot;                &quot;Maryland&quot;            
+## [22] &quot;Massachusetts&quot;        &quot;Michigan&quot;             &quot;Minnesota&quot;           
+## [25] &quot;Mississippi&quot;          &quot;Missouri&quot;             &quot;Montana&quot;             
+## [28] &quot;Nebraska&quot;             &quot;Nevada&quot;               &quot;New Hampshire&quot;       
+## [31] &quot;New Jersey&quot;           &quot;New Mexico&quot;           &quot;New York&quot;            
+## [34] &quot;North Carolina&quot;       &quot;North Dakota&quot;         &quot;Ohio&quot;                
+## [37] &quot;Oklahoma&quot;             &quot;Oregon&quot;               &quot;Pennsylvania&quot;        
+## [40] &quot;Rhode Island&quot;         &quot;South Carolina&quot;       &quot;South Dakota&quot;        
+## [43] &quot;Tennessee&quot;            &quot;Texas&quot;                &quot;Utah&quot;                
+## [46] &quot;Vermont&quot;              &quot;Virginia&quot;             &quot;Washington&quot;          
+## [49] &quot;West Virginia&quot;        &quot;Wisconsin&quot;            &quot;Wyoming&quot;</code></pre>
+<p>Eine Zeile in einer Variablen. Hier Zeile 1:<br />
+</p>
+<pre class="r"><code>murders$state[1]</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;</code></pre>
+<p>Und es geht auch so. Erster Wert ist die Zeile, zweiter die Spalte.<br />
+</p>
+<pre class="r"><code>murders[1,1]</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;</code></pre>
+<p><br />
+</p>
+</div>
+<div id="konventionen-namen" class="section level4">
+<h4>Konventionen: Namen<br />
+</h4>
+<p>Woran ich mich orientiere:<br />
+Übergreifend:<br />
+- treffend<br />
+- kurz<br />
+- konsistent<br />
+<br />
+Konkret:<br />
+- nur Kleinschreibung<br />
+- Unterstrich verwenden<br />
+- vor Ziffern nicht notwendigerweise Unterstrich verwenden<br />
+- keine Umlaute und Sonderzeichen<br />
+- Objektnamen nicht mit Ziffern beginnen<br />
+<br />
+Beispiele:<br />
+- Mittelwert berechnet: _avg<br />
+- weiteres: _md, _sd, _min, …<br />
+- fehlende Werte entfernt: _nona<br />
+- Daten langes Format: _long<br />
+- Daten vereinigt: _joined<br />
+- Anteile: _prop<br />
+- zentrale Daten: data<br />
+- Rohdaten: _raw<br />
+</p>
+<p>Hilfreich finde ich auch den <a href="https://google.github.io/styleguide/Rguide.html">Google Styleguide für R Namen</a><br />
+</p>
+</div>
+<div id="datentypanpassung" class="section level4">
+<h4>Datentypanpassung:</h4>
+<p>Noch etwas sehr gängiges: Ich passe den Datentyp an. Zum Beispiel habe ich eine Variable, also einen Vektor mit Zahlen. Diese sollen aber eigentlich Textwerte darstellen.<br />
+</p>
+<pre class="r"><code>betriebsnummer &lt;- c(13445, 56668, 98887)</code></pre>
+<p>R vermutet automatisch, dass es sich um eine numerische Variable handelt. Ich frage es ab:<br />
+</p>
+<pre class="r"><code>class(betriebsnummer)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Ok, nun hin zu Text konvertieren:<br />
+</p>
+<pre class="r"><code>as.character(betriebsnummer)</code></pre>
+<pre><code>## [1] &quot;13445&quot; &quot;56668&quot; &quot;98887&quot;</code></pre>
+<p>Kontrolle des Datentyps:<br />
+</p>
+<pre class="r"><code>class(betriebsnummer)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Wie aus anderen Programmen gewohnt, nutzt R die Angabe “NA” für fehlende Werte.<br />
+Die werden häufig bereits im Datensatz fehlen. Können aber auch durch Datentypanpassungen entstehen. Ein Beispiel:<br />
+</p>
+<pre class="r"><code>x &lt;- c(1, &quot;b&quot;, 3)</code></pre>
+<pre class="r"><code>class(x)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Datentypumwandlung dieses Vektors:<br />
+</p>
+<pre class="r"><code>y &lt;- as.numeric(x)</code></pre>
+<pre><code>## Warning: NAs durch Umwandlung erzeugt</code></pre>
+<p>In oben stehender Berechnung ist nun ein interessanter Aspekt hinzugekommen. Ich habe erst die Daten der Variable x zugeordnet. Und dann diese Variable weiterverwendet. Dies wird häufig gemacht um zum Ursprung zurückkehren zu können. Aber für die Konvertierung, habe ich die neue Variable y genannt. Praktisch dupliziert und der neuen Variable einen anderen Datentyp zugewiesen.<br />
+</p>
+<pre class="r"><code>y</code></pre>
+<pre><code>## [1]  1 NA  3</code></pre>
+<p>Ich sehe ich nun final, dass b nun zu NA konvertiert wurde.<br />
+</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="sortieren-von-daten" class="section level3">
+<h3>Sortieren von Daten</h3>
+<p>Sortieren vom niedrigsten zum höchsten Eintrag, funktioniert mit der sort() Funktion. Ich bleibe dazu im mitgelieferten Datensatz “murders”.<br />
+</p>
+<pre class="r"><code>sort(murders$total)</code></pre>
+<pre><code>##  [1]    2    4    5    5    7    8   11   12   12   16   19   21   22   27   32
+## [16]   36   38   53   63   65   67   84   93   93   97   97   99  111  116  118
+## [31]  120  135  142  207  219  232  246  250  286  293  310  321  351  364  376
+## [46]  413  457  517  669  805 1257</code></pre>
+<p>Schön zu sehen ist, dass der Vektor nun sortiert ausgegeben wird. Der US-Statt mit der niedrigsten Schußwaffen Tötungsrate hat 2 Tote, der Staat mit den höchsten Zahlen hatte 1257 Fälle.<br />
+Allerdings kann ich damit nur diesen einen Vektor sortieren, aber nicht sehen, welcher Staat zugehörig ist. Dies kann ich mit der Funktion order() erreichen.<br />
+Ich speicher die Sortierung in der Variable order ab. Und verwende sie im Anschluss um die Staatenabkürzungen nach dieser sortierten Variable sortieren zu lassen (Eigentlich ist Order eine indexierte Variable. Ich erkläre das hier mal nicht näher, denn tatsächlich gibt es im package tidyverse eine viel schönere und einfacher verständliche Lösung um Daten zu sortieren und die werde ich auch im Alltag nur nutzen).</p>
+<pre class="r"><code>order &lt;- order(murders$total)</code></pre>
+<p>Sortieren der Staatenabkürzungen:<br />
+</p>
+<pre class="r"><code>murders$abb[order]</code></pre>
+<pre><code>##  [1] &quot;VT&quot; &quot;ND&quot; &quot;NH&quot; &quot;WY&quot; &quot;HI&quot; &quot;SD&quot; &quot;ME&quot; &quot;ID&quot; &quot;MT&quot; &quot;RI&quot; &quot;AK&quot; &quot;IA&quot; &quot;UT&quot; &quot;WV&quot; &quot;NE&quot;
+## [16] &quot;OR&quot; &quot;DE&quot; &quot;MN&quot; &quot;KS&quot; &quot;CO&quot; &quot;NM&quot; &quot;NV&quot; &quot;AR&quot; &quot;WA&quot; &quot;CT&quot; &quot;WI&quot; &quot;DC&quot; &quot;OK&quot; &quot;KY&quot; &quot;MA&quot;
+## [31] &quot;MS&quot; &quot;AL&quot; &quot;IN&quot; &quot;SC&quot; &quot;TN&quot; &quot;AZ&quot; &quot;NJ&quot; &quot;VA&quot; &quot;NC&quot; &quot;MD&quot; &quot;OH&quot; &quot;MO&quot; &quot;LA&quot; &quot;IL&quot; &quot;GA&quot;
+## [46] &quot;MI&quot; &quot;PA&quot; &quot;NY&quot; &quot;FL&quot; &quot;TX&quot; &quot;CA&quot;</code></pre>
+<p>VT hat also die niedrigsten Tötungsraten und CA hat die höchsten Tötungsraten.<br />
+Das Maximum kann ich jedoch auch wie folgt berechnen:<br />
+</p>
+<pre class="r"><code>max(murders$total)</code></pre>
+<pre><code>## [1] 1257</code></pre>
+<p>Und das Minimun über folgenden Code:<br />
+</p>
+<pre class="r"><code>min(murders$total)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Eine weitere Funktion, die ich häufig in anderer Software nutze ist der Rang. Der kann hier in R wie folgt abgefragt werden:<br />
+</p>
+<pre class="r"><code>rank(murders$total)</code></pre>
+<pre><code>##  [1] 32.0 11.0 36.0 23.5 51.0 20.0 25.5 17.0 27.0 49.0 45.0  5.0  8.5 44.0 33.0
+## [16] 12.0 19.0 29.0 43.0  7.0 40.0 30.0 46.0 18.0 31.0 42.0  8.5 15.0 22.0  3.5
+## [31] 37.0 21.0 48.0 39.0  2.0 41.0 28.0 16.0 47.0 10.0 34.0  6.0 35.0 50.0 13.0
+## [46]  1.0 38.0 23.5 14.0 25.5  3.5</code></pre>
+<p><br />
+#### Vektor Arithmetik<br />
+<br />
+Wie arbeite ich mit Vekoren?<br />
+CA also Kalifornien hatte die hächsten Tötungsraten aber auch die höchste Population. Wie in anderen Statistikprogrammen auch, führt R die Vektoroperationen “element-wise” durch. Ich berechne also die Tötungsrate wie folgt für jeden Staat:<br />
+</p>
+<pre class="r"><code>toetungsrate &lt;- murders$total / murders$population * 100000</code></pre>
+<p>Nun sortiere ich die Staaten nach Tötungsrate:<br />
+</p>
+<pre class="r"><code>murders$state[order(toetungsrate, decreasing=TRUE)]</code></pre>
+<pre><code>##  [1] &quot;District of Columbia&quot; &quot;Louisiana&quot;            &quot;Missouri&quot;            
+##  [4] &quot;Maryland&quot;             &quot;South Carolina&quot;       &quot;Delaware&quot;            
+##  [7] &quot;Michigan&quot;             &quot;Mississippi&quot;          &quot;Georgia&quot;             
+## [10] &quot;Arizona&quot;              &quot;Pennsylvania&quot;         &quot;Tennessee&quot;           
+## [13] &quot;Florida&quot;              &quot;California&quot;           &quot;New Mexico&quot;          
+## [16] &quot;Texas&quot;                &quot;Arkansas&quot;             &quot;Virginia&quot;            
+## [19] &quot;Nevada&quot;               &quot;North Carolina&quot;       &quot;Oklahoma&quot;            
+## [22] &quot;Illinois&quot;             &quot;Alabama&quot;              &quot;New Jersey&quot;          
+## [25] &quot;Connecticut&quot;          &quot;Ohio&quot;                 &quot;Alaska&quot;              
+## [28] &quot;Kentucky&quot;             &quot;New York&quot;             &quot;Kansas&quot;              
+## [31] &quot;Indiana&quot;              &quot;Massachusetts&quot;        &quot;Nebraska&quot;            
+## [34] &quot;Wisconsin&quot;            &quot;Rhode Island&quot;         &quot;West Virginia&quot;       
+## [37] &quot;Washington&quot;           &quot;Colorado&quot;             &quot;Montana&quot;             
+## [40] &quot;Minnesota&quot;            &quot;South Dakota&quot;         &quot;Oregon&quot;              
+## [43] &quot;Wyoming&quot;              &quot;Maine&quot;                &quot;Utah&quot;                
+## [46] &quot;Idaho&quot;                &quot;Iowa&quot;                 &quot;North Dakota&quot;        
+## [49] &quot;Hawaii&quot;               &quot;New Hampshire&quot;        &quot;Vermont&quot;</code></pre>
+<p>Kalifornien ist somit nicht mehr der bedenklichste Staat als Möglichkeit meiner beruflichen Veränderung. District of Colombia ist im Falle der Tötungsrate der bedenklichste Zielort.<br />
+</p>
+</div>
+<div id="operatoren-logicals" class="section level3">
+<h3>Operatoren, Logicals</h3>
+<p>Nun zeige ich kurz die Indexierung.<br />
+Die Tötungsrate soll kleiner oder gleich dem Verhältnis von 0,71 sein:<br />
+</p>
+<pre class="r"><code>index &lt;- toetungsrate &lt;= 0.71</code></pre>
+<p>D.h. nun für das Ergebnis:<br />
+</p>
+<pre class="r"><code>index</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [13] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [25] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
+## [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+## [49] FALSE FALSE FALSE</code></pre>
+<p>D.h. wieder wird R durch jeden Fall element-wise durchgehen und schaut einzeln ob die Bedingung gegeben ist oder eben nicht. Dort wo TRUE ausgegeben wird, ist die Bedingung erfüllt.<br />
+Nun schaue ich für welche Staaten, die Bedingung erfüllt wird:<br />
+</p>
+<pre class="r"><code>murders$state[index]</code></pre>
+<pre><code>## [1] &quot;Hawaii&quot;        &quot;Iowa&quot;          &quot;New Hampshire&quot; &quot;North Dakota&quot; 
+## [5] &quot;Vermont&quot;</code></pre>
+<p>Wenn ich die Summe des Logicals (hier: Index) nehme, dann wird der Logical zu 0 und 1 numerisch. D.h. TRUE erhält die 1 und FALSE die 0. Diese Werte werden bei sum() aufsummiert.<br />
+</p>
+<pre class="r"><code>sum(index)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p>Hier eine Liste möglicher Operatoren:<br />
+<img src="Operatoren.png" /><br />
+</p>
+<p>Also in die Anwendung:<br />
+Ich möchte im Westen der USA leben und die Tötungsrate soll unter 1 liegen.<br />
+</p>
+<pre class="r"><code>west &lt;- murders$region == &quot;West&quot;</code></pre>
+<p>und<br />
+</p>
+<pre class="r"><code>sicher &lt;- toetungsrate &lt;=1</code></pre>
+<p><br />
+</p>
+<p>Diese kombiniere ich nun zu:<br />
+</p>
+<pre class="r"><code>index &lt;- sicher &amp; west</code></pre>
+<p>Und in welche Staaten könnte ich nun ziehen?<br />
+</p>
+<pre class="r"><code>murders$state[index]</code></pre>
+<pre><code>## [1] &quot;Hawaii&quot;  &quot;Idaho&quot;   &quot;Oregon&quot;  &quot;Utah&quot;    &quot;Wyoming&quot;</code></pre>
+<p><br />
+</p>
+<div id="indexing-funktionen" class="section level4">
+<h4>Indexing Funktionen<br />
+</h4>
+<ul>
+<li>which - match - %in%</li>
+</ul>
+<p>Ich starte mit <strong>which()</strong>.<br />
+which() gibt mir die Einträge des Vektors, die TRUE sind. Also, ich definiere zunächst einen Vektor als logical:<br />
+</p>
+<pre class="r"><code>x &lt;- c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE)</code></pre>
+<p>Nun wende ich <code>which()</code> an um zu erfragen, welcher Eintrag TRUE ist.<br />
+</p>
+<pre class="r"><code>which(x)</code></pre>
+<pre><code>## [1] 1 3 4 9</code></pre>
+<p><br />
+Dies kann ich zum Beispiel anwenden um herauszufinden, wie die Tötungsrate in Illinois ist:<br />
+</p>
+<pre class="r"><code>index &lt;- which(murders$state == &quot;Illinois&quot;)</code></pre>
+<p>Und dies verwende ich in:<br />
+</p>
+<pre class="r"><code>toetungsrate[index]</code></pre>
+<pre><code>## [1] 2.836961</code></pre>
+<p><br />
+Nun geht es über zu <strong>match()</strong><br />
+Hier ist es erforderlich, dass mehrere Bedingungen erfüllt sind:<br />
+</p>
+<pre class="r"><code>index &lt;- match(c(&quot;California&quot;, &quot;Texas&quot;, &quot;New York&quot;), murders$state)</code></pre>
+<p>Das erste Argument zählt die Bedingungen auf, das zweite Argument die Variable aus der die Bedingung kommt.<br />
+</p>
+<p>Kontrolle ob der Index richtig gesetzt wurde.<br />
+</p>
+<pre class="r"><code>murders$state[index]</code></pre>
+<pre><code>## [1] &quot;California&quot; &quot;Texas&quot;      &quot;New York&quot;</code></pre>
+<p>Nun schaue ich mir noch die Tötungsraten dieser drei Staaten an:<br />
+</p>
+<pre class="r"><code>toetungsrate[index]</code></pre>
+<pre><code>## [1] 3.374138 3.201360 2.667960</code></pre>
+<p><br />
+Nun geht es noch um einen häufigen Operator in R. Den <strong>%in%</strong> Operator:<br />
+Mit diesem kann ich schauen ob ein Vektor in einem anderen Vektor enthalten ist.<br />
+Ein Beispiel:<br />
+</p>
+<pre class="r"><code> x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)</code></pre>
+<p>Und einen zweiten Vektor:<br />
+</p>
+<pre class="r"><code>y &lt;- c(&quot;a&quot;, &quot;d&quot;, &quot;f&quot;)</code></pre>
+<p>Nun verwende ich die Abfrage wo es Dopplungen in x von y gibt:<br />
+</p>
+<pre class="r"><code>x %in% y</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE  TRUE</code></pre>
+<p>Und andersherum, wo wird y von x überschnitten?<br />
+</p>
+<pre class="r"><code>y %in%x</code></pre>
+<pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
+<p>Ein einfacher Anwendungsfall. Ich möchte wissen, ob Washington, Dakota, und Boston Staaten im Datensatz sind.<br />
+</p>
+<pre class="r"><code>c(&quot;Washington&quot;, &quot;Dakota&quot;, &quot;Boston&quot;) %in% murders$state</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<p>Ich sehe, dass nur Washington ein Staat des Datensatzes ist.<br />
+<br />
+<br />
+#### dyplr package<br />
+<br />
+Meist werden allerdings Datentabellen gefiltert, sortiert, usw. Dazu gibt es ein Statistikpackage, dass das Leben erheblich erleichtert. Ich installiere es und lade es in meine <a href="%5BSession:\%5D(Session:)%7B.uri%7D" class="uri">[Session:\\](Session:){.uri}</a></p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<p>Die ersten drei Standardfunktionen möchte ich zeigen:<br />
+- neue Spalte erstellen oder Spalte ändern: <code>mutate()</code><br />
+- spezielle Zeilen auswählen / filtern: <code>filter()</code><br />
+- bestimmte Spalten auswählen: <code>select()</code><br />
+- Eine Funktion an die nächste senden: %&gt;% (command + Shift + M)<br />
+</p>
+<p><br />
+Nun möchte ich den Vektor toetungsrate in meinen Data Frame integrieren. Das kann ich mit mutate().<br />
+</p>
+<pre class="r"><code>murders &lt;- mutate(murders, toetungsrate=total/population * 100000)</code></pre>
+<p>Ich nenne also zunächst den Datensatz. In der Funktion mutate() ist der urspprüngliche Datensatz das erste Argument, das zweite Argument ist dann die veränderte/berechnete Variable.<br />
+Im dplyr package benötige ich auch nicht die Variablenauswahl mit $. Dadurch wird es sehr viel besser lesbar.<br />
+Nun einmal zur Bestätigung. Ist die toetungsrate im Datensatz enthalten?<br />
+</p>
+<pre class="r"><code>head(murders)</code></pre>
+<pre><code>##        state abb region population total toetungsrate
+## 1    Alabama  AL  South    4779736   135     2.824424
+## 2     Alaska  AK   West     710231    19     2.675186
+## 3    Arizona  AZ   West    6392017   232     3.629527
+## 4   Arkansas  AR  South    2915918    93     3.189390
+## 5 California  CA   West   37253956  1257     3.374138
+## 6   Colorado  CO   West    5029196    65     1.292453</code></pre>
+<p>Im nächsten Schritt, möchte ich nur noch Staaten sehen mit einer Tötungsrate niedriger als 0,71. Ich nutze filter().<br />
+</p>
+<pre class="r"><code>murders &lt;- filter(murders, toetungsrate &lt;=.71)</code></pre>
+<p>Und im nächsten Schritt wähle ich lediglich drei Spalten aus dem gesamten Datensatz für weitere Analysen aus:<br />
+</p>
+<pre class="r"><code>murders &lt;- select(murders, state, region, toetungsrate)</code></pre>
+<p>Das Ergebnis sieht nun wie folgt aus:<br />
+</p>
+<pre class="r"><code>head(murders)</code></pre>
+<pre><code>##           state        region toetungsrate
+## 1        Hawaii          West    0.5145920
+## 2          Iowa North Central    0.6893484
+## 3 New Hampshire     Northeast    0.3798036
+## 4  North Dakota North Central    0.5947151
+## 5       Vermont     Northeast    0.3196211</code></pre>
+<p>Und all diese Schritte kann ich mit dem Pipe Operator ( %&gt;% ) in einem Schritt durchführen. Zunächst gebe ich die Daten in die Berechnung und führe dann nach und nach die Berechnungen durch.<br />
+</p>
+<pre class="r"><code>murders %&gt;% 
+        select(state, region, toetungsrate) %&gt;% 
+        filter(toetungsrate &lt;=0.71)</code></pre>
+<pre><code>##           state        region toetungsrate
+## 1        Hawaii          West    0.5145920
+## 2          Iowa North Central    0.6893484
+## 3 New Hampshire     Northeast    0.3798036
+## 4  North Dakota North Central    0.5947151
+## 5       Vermont     Northeast    0.3196211</code></pre>
+</div>
+</div>
+<div id="eda-explanotary-data-analysis" class="section level3">
+<h3>EDA Explanotary Data Analysis</h3>
+<p>Wir untersuchen zunächst unsere Daten visuell. Das tun wir um die Daten besser zu verstehen - wo kommen sie her, wie sehen sie aus, sind sie normalverteilt oder biased? Erst im nächsten Schritt formulieren wir Hypothesen und Modelle. Die Intuition zu den Daten und zum Arbeitsfeld zu entwickeln ist der erste wichtige Schritt. Welche Variablen haben vermutlich die größte Vorhersagekraft und welche Modelle passen vermutlich am besten zu unseren Daten und Fragen.</p>
+<p>Mindset entwickeln, dass dich neugierig macht aber genauso skeptisch bleiben lässt bei Daten.<br />
+</p>
+</div>
+<div id="wie-erstelle-ich-basis-grafiken" class="section level3">
+<h3>Wie erstelle ich Basis Grafiken?</h3>
+<p><br />
+Also, ich verwende wieder den murders Datensatz. Verwende die <code>plot()</code>Funktion und setze zwei nummerische Variablen ein, damit erhalte ich einen Scatterplot.<br />
+</p>
+<pre class="r"><code>plot(toetungsrate, murders$total)</code></pre>
+<p><img src="gettingstarted_files/figure-html/Plot-1.png" width="672" /></p>
+<p>Ein Histogram erhalte ich über die Funktion <code>hist()</code>.<br />
+</p>
+<pre class="r"><code>hist(toetungsrate)</code></pre>
+<p><img src="gettingstarted_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Einen Boxplot erstelle ich wie folgt:</p>
+<pre class="r"><code>boxplot(toetungsrate~region, data=murders)</code></pre>
+<p><img src="gettingstarted_files/figure-html/Boxplot-1.png" width="672" /></p>
+</div>
+<div id="funktionen-1" class="section level3">
+<h3>Funktionen</h3>
+<ul>
+<li>Conditionals<br />
+</li>
+<li>For Loops<br />
+</li>
+<li>Funktionen<br />
+<br />
+</li>
+</ul>
+<p><strong>Conditionals</strong><br />
+<img src="ifelse.png" /><br />
+Eine häufige Formel ist <strong>if else</strong>.<br />
+</p>
+<pre class="r"><code>note &lt;- 4</code></pre>
+<p>Diese Note möchte ich in zwei Kategorien einteilen:<br />
+</p>
+<pre class="r"><code>if(note&gt;3){
+        print(&quot;schlecht&quot;)
+} else {
+        print(&quot;gut&quot;)
+}</code></pre>
+<pre><code>## [1] &quot;schlecht&quot;</code></pre>
+<p>Eine Anwendung in unserem murders Datensatz:<br />
+</p>
+<pre class="r"><code>library(dslabs)</code></pre>
+<pre class="r"><code>data(murders)</code></pre>
+<pre class="r"><code>murder_rate &lt;- murders$total / murders$population*100000</code></pre>
+<pre class="r"><code>ind &lt;- which.min(murder_rate)</code></pre>
+<p>Wenn der Staat nun eine toetungsrate unter 0.5 hat, soll der Staat verwendet werden:<br />
+</p>
+<pre class="r"><code>if (murder_rate[ind] &lt;0.5){
+        print(murders$state[ind])
+} else {
+        print(&quot;Kein Staat hat solch eine niedrige Tötungsrate&quot;)
+}</code></pre>
+<pre><code>## [1] &quot;Vermont&quot;</code></pre>
+<p><strong>ifelse</strong>:</p>
+<p>Diese Funktion hat 3 Argumente. Eins ist der logical und zwei sind die möglichen Antworten. Wenn der locigal wahr ist, dann wird die erste Antwort ausgegeben, ansonsten die zweite.<br />
+</p>
+<pre class="r"><code>notenschnitt &lt;- c(2.5, 3.3, 1.3, 4.9)</code></pre>
+<pre class="r"><code>ifelse(notenschnitt &lt; 3, &quot;gut&quot;, &quot;schlecht&quot;)</code></pre>
+<pre><code>## [1] &quot;gut&quot;      &quot;schlecht&quot; &quot;gut&quot;      &quot;schlecht&quot;</code></pre>
+<p><br />
+<br />
+Eine mögliche Anwendung ist das Ersetzen von NAs im Datensatz durch einen anderen Wert:<br />
+</p>
+<pre class="r"><code>data(&quot;na_example&quot;)
+sum(is.na(na_example))</code></pre>
+<pre><code>## [1] 145</code></pre>
+<p>Es sind 145 NAs im Datensatz enthalten. Diese möchte ich nun durch 0 ersetzen und in einem neuen Vektor speichern.<br />
+</p>
+<pre class="r"><code>kein_NA &lt;- ifelse(is.na(na_example), 0, na_example)</code></pre>
+<p>Nun sollte die Summe der NAs gleich 0 sein:<br />
+</p>
+<pre class="r"><code>sum(is.na(kein_NA))</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p><strong>any()</strong><br />
+Die <code>any()</code>Funktion nimmt einen Vektor von Logicals und prüft ob irgendein Eintrag TRUE ist.<br />
+</p>
+<pre class="r"><code>check &lt;- c(TRUE, TRUE, FALSE, TRUE)
+any(check)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p><strong>all()</strong><br />
+Die all() Funktion prüft ob alle Einträge in einem Vektor TRUE sind.<br />
+</p>
+<pre class="r"><code>all(check)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<p><strong>Funktionen</strong><br />
+Manche Berechnungen führe ich immer und wieder durch. Zum Beispiel die Berechnung des Mittelwertes. Dieser berechnet sich ja wie folgt:<br />
+<code>sum(x)/length(x)</code><br />
+Der Grundaufbau zum Schreiben einer neuen Funktion erfolgt so:</p>
+<p><img src="Funktionen.png" /></p>
+<p>Ganz praktisch bedeutet dies für die Funktionsprogrammierung des Mittelwertes folgendes:<br />
+</p>
+<pre class="r"><code>avg &lt;- function(x){
+s &lt;- sum(x)
+n &lt;- length(x)
+s/n
+}</code></pre>
+<p>Nun verwende ich diese Funktion.<br />
+</p>
+<pre class="r"><code>kinder &lt;- 1:100
+avg(kinder)</code></pre>
+<pre><code>## [1] 50.5</code></pre>
+<p>Das diese selbstzusammengeschriebene Funktion identisch zur mitgelieferten Funktion in R ist, kann ich wie folgt prüfen:<br />
+</p>
+<pre class="r"><code>identical(avg(kinder), mean(kinder))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p><strong>For loops</strong><br />
+For loops führen eine Berechnung immer und immer wieder durch, während die Variable ausgetauscht wird. Die Variablen Range müssen wir vorher natürlich definieren, die dann einmal durchgerechnet werden soll. Die for loops Berechnung erfolgt indem man zunächst definiert was durchlaufen werden soll (für i tue diese range), und dann wird die Berechnung genannt.<br />
+Hier die Grundform:<br />
+<img src="for%20loops.png" /><br />
+Ein erstes Beispiel zur Verdeutlichung:<br />
+</p>
+<pre class="r"><code>for(i in 1:3){
+  print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3</code></pre>
+<p>Nun noch ein Beispiel. Ich möchte die Summe von 1 bis 100 errechnen. Ich schreibe also erst einmal einen Vektor:<br />
+</p>
+<pre class="r"><code>nSchrauben &lt;- 100</code></pre>
+<p>Nun erzeuge ich einen leeren Vektor, in dem ich die Ergebnisse speichere:<br />
+</p>
+<pre class="r"><code>sumSchrauben &lt;- vector(length=nSchrauben)</code></pre>
+<p>Und nun errechne ich die Summe:<br />
+</p>
+<pre class="r"><code>for(i in 1:nSchrauben){
+    sumSchrauben[i] &lt;- sum(i)
+}</code></pre>
+<pre class="r"><code>i &lt;- 1:nSchrauben</code></pre>
+<pre class="r"><code>plot(i, sumSchrauben)</code></pre>
+<p><img src="gettingstarted_files/figure-html/unnamed-chunk-34-1.png" width="672" /> For loops werden selten in R verwendet. Warum? Es werden stattdessen folgende Funktionen regelmäßig genutzt:<br />
+apply<br />
+sapply<br />
+tapply<br />
+mapply<br />
+</p>
+</div>
+</div>
+
+<p> Kontakt: Marie-Christin Eilers, Hohes Feld 4, 29649 Wietzendorf, Deutschland</p>
+<p> Letzte Aktualisierung: März 2022 </p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

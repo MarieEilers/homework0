@@ -1,0 +1,119 @@
+---
+title: "Spickzettel"
+author: "Marie-Christin Eilers"
+date: "3/13/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basics\
+Shortcuts: `Shift + Alt + K` oder `Shift + option + K` \
+\
+
+## Daten Import \
+- Alle mitgelieferten Datensätze anzeigen: `data()` \
+- Arbeitsverzeichnis anzeigen: `getwd()`\
+- Arbeitsverzeichnis setzen: `setwd()` \
+
+
+Cheatsheets:\
+- [R Studio Oberfläche](file:///Users/marie-christin.eilers/Downloads/rstudio-ide%20(2).pdf) \
+- [Base R: Hilfe, Packages installieren und nutzen, Datenimport und -export, Objekttypen, Subsetting, Grafiken, Funktionen](https://github.com/rstudio/cheatsheets/blob/main/base-r.pdf) \
+- [dplyr](file:///Users/marie-christin.eilers/Downloads/data-transformation%20(4).pdf)
+
+### Objekte\
+**Ausdrucken von Ergebnissen:**\
+`a` \
+oder \
+`print(a)`\
+
+**Workspace**\
+- Package installieren: `install.packages('x')` \
+- Package für Session installieren: `library('x')` \
+- Daten aus Package laden: `data('x')` \
+- Objekte anzeigen: `ls()` \
+- Objekte löschen: `rm('x')`\
+- Nachkommastellen global einstellen: `options(digits=2)`\
+
+**Hilfe** \
+- `help('x')` \
+- `?x` \
+- `args(x)`zeigt uns die Argumente die eine Funktion benötigt
+
+**Untersuchen von Objekten**\
+- Datentyp: `class('x')`\
+- Datenstruktur: `str('x')`\
+- erste 6 Rows Datensatz anzeigen: `head(x)`\
+- Variablennamen: `names(x)`\
+- Überblick Dataframe: `glimpse()` \
+- Länge Vektor: `length(x$y)`\
+- Kategorien in Factors: `levels(x$y)` \
+- Identisch?: `identical(y1, y2)` \
+- Frequenz darstellen von Spalte und Zeilen: `table(x$y)` \
+
+
+-  runden: `round(y, digits=2)` \
+- Anzahl Variablen: `ncol(x)`\
+- Anzahl Zeilen: `nrow(x)` \
+- Anzahl Levels von Faktoren: `nlevels(x)`\
+- Sequenz: `seq(1,10)`\
+- Max oder Min: `max(x)` `min(x)`\
+- Subsetting:
+  - `x[1]`\
+  - `x[c(1,2)]`\
+  - `x[1:3]`\
+  - `x["Name"]`\
+  - `x[c("Name1", Name2")]`\
+- Datentyp verändern: \
+  - `as.character(x)`\
+  - `as. numeric(x)`\
+  - Integer: `class(1L)`\
+- Logical which: `which(x=="Name")`\
+- Auswahl mehrere: `match(c(x, y, z)a$Variable)`\
+- erster Vektor in zweitem Vektor: `x %in% y`\
+
+
+  
+
+
+
+**Selektieren:**
+- eine Variable: \
+  - `x$y` \
+  - `a <- x$y` \
+  - `a <- x[['y']]`, wenn ich wie folgt selektiert hätte: `a <- x['y']` dann wäre y nicht als Vektor sondern als Data Frame ausgegeben worden \
+  
+
+**Sortieren**\
+- Sortieren: `sort(x)`\
+- Sortieren: `order(x)`\
+- Rang: `rank(x)` \
+
+
+**dplyr**\
+- Spalte ändern/erstellen: `mutate()`\
+- Filtern/Zeilen eingrenzen: `filter()`\
+- Spalten auswählen: 'select()` \
+- Sortieren: `arrange()`\
+
+
+**Funktionen**\
+- if else:\
+    `if(x>3){
+        print("Wort/Zahl/Objekt")
+} else {
+        print("Wort/Zahl/Objekt")
+}`\
+
+- ifelse:\
+    `ifelse(x<3, arg1, arg2)`\
+    
+- Check ob ein Logical TRUE ist: `any()`\
+- Check ob alle Einträge TRUE sind: `all()`\
+
+
+
+

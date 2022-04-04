@@ -1,0 +1,70 @@
+---
+title: "Warum?"
+output: 
+    toc: true
+---
+
+### Arbeitsmarktgängigkeit
+
+
+Warum sollte ich mir R genauer anschauen und vielleicht sogar erlernen?\
+Noch weiß ich es nicht. Kann es nicht greifen. Nicht ausdrücken.\
+Den ersten Kontakt zu R hatte ich im Studium. Es erschien mir kompliziert.
+
+*Was ist heute anders?*\
+Ersteinmal auf den ersten Blick nicht viel - und doch alles.\
+In den letzten Jahren habe ich intensiv mit Statistica, einer Point & Click Statistiksoftware gearbeitet, sowie natürlich mit Excel und Tableau.\
+Ich kann neben deskriptiver Statistik, leichter Datenbereinigung, Visualisierung, sowie multivariaten Methoden einiges damit anstellen - Kundenbefragungen auswerten, beste Packages bestimmen, Packages preislich diskrimieren, weitere Vorlieben der Kunden identifizieren und vorschlagen, Preiselastizitäten modellieren und testen, segmentieren und Forecasts erstellen.\
+Also, eigentlich bin ich zufrieden. Und doch...
+
+**Wer bin ich?**
+
+Gelernte Landwirtin\
+Studierte Agrarökonomin
+
+Ich komme also aus einer Welt, in der es praktisch zugeht.\
+Fähigkeiten, Leidenschaft, Unternehmertum, sich ständig neu erfinden, sich am Markt behaupten können - aus dieser Welt komme ich.\
+Nach dem Studium wurde ich zuständig für die Welt der Daten rund um die Landwirtschaft. Aus Daten Wissen genieren, um besser im Geschäft zu sein und zu bleiben.\
+Kunden, Wettbewerber und Agrarmärkte.
+
+![i. pexels.com](pexels-kelly-l-4394323.jpg)
+
+**Wo will ich hin?**\
+Was nützt mein Leben? Die vielen Stunden Arbeitszeit? Zum Lebensunterhalt kann ich vielleicht auch einige Jahre im Mittelmaß schwimmen. Vielleicht. Vielleicht auch nicht.\
+Macht Mittelmaß Spaß?\
+Bestimmt verschafft Mittelmaß Zeit. Zeit für Familie, Zeit für Ehrenamt, Zeit für Hobbys. Ich entscheide mich fürs Dranbleiben. Und lieber noch: fürs Vorangehen. Leicht gesagt. Umsetzen ist immer schwerer als die bloßen Träume davon.
+
+*Wie stelle ich meinen Stand fest?*\
+Ich blättere durch Stellenanzeigen und gleiche meine Fähigkeiten und Erfahrungen mit den heute gesuchten ab.\
+Ich frage Kollegen/Peers innerhalb und außerhalb meines Unternehmens nach heute gefragten Skills.\
+Ich bitte um Einschätzungen dieser wahrgenommenen Entwicklungen.
+
+*Wie bewerte ich meinen Stand aufgrund der Research Ergebnisse?*\
+Mein Stand ist ganz gut. Im Grundsatz.\
+Ich habe praktische, solide Branchenkenntnisse gepaart mit KnowHow in Geschäftsentwicklung und Datenbearbeitung. Das ist schon einmal eher eine Kombi, die es selten am Arbeitsmarkt zu geben scheint. Potenzial?\
+Was mir aber auffällt: R oder Phyton sowie SQL werden in so gut wie jeder Ausschreibung erwähnt. Selbst Informatiker, die mit mir in meiner Abteilung und meinem Industriefeld zusammen arbeiten, sind deswegen beunruhigt. Das sah vor wenigen Jahren noch anders aus. Einige fragen sich, welche Vorteile diese Programmiersprachen denn überhaupt gegenüber Ihren verwendeten Lösungen bieten sollen oder wie hart diese Auswahlkriterien wirklich für den neuen Job wären, sollte eine Jobsuche notwendig werden. Sie arbeiten doch bereits seit vielen Jahren mit Daten - Faktoranalysen bis hin zu neuronalen Netzen müssen doch einen Erfahrungswissenschatzwert darstellen, oder nicht?\
+Unausgesprochene und ausgesprochene Ängste.
+
+*Marktgängig bleiben*\
+Ich bin im mittleren Alter.\
+Ich bin gut.\
+Ich möchte gut bleiben.\
+Ich möchte die Welt noch immer "ein Stückchen verständlicher machen".
+
+Und bereits diese Punkte genügen für die Entscheidung.\
+Anschauen dieser "neuen" Tools.
+
+![ii. pexels.com](pexels-pixabay-158011.jpg)
+
+### Aber wie?
+
+Alle Lernmaterialien zu SQL, R, Python sehen nach Programmierung aus.
+
+Zu viel Aufwand, für zu wenig praktischen, unternehmensrelevanten Mehrwert?\
+Ich möchte es wissen.
+
+-   ***Können diese Programme irgendetwas besser, als meine heute verwendete Software?***
+-   ***Ist es schwer zu erlernen?***
+-   ***Wie teuer sind diese Programme?***
+
+------------------------------------------------------------------------

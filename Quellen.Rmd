@@ -1,0 +1,20 @@
+---
+title: "Literaturverzeichnis"
+---
+
+### Lerntutorials   
+
+1) [HarvardX Data Science PH125](www.edx.org); Prof. Rafael Irizzary
+2) [R Methodenlehre](https://methodenlehre.github.io/einfuehrung-in-R/die-r-sprache.html)
+3. Moderne Datenanalyse mit R von Christian Sauer. Springer Gabler Verlag, FOM Edition. 2019
+
+
+### Fotos
+
+i.) https://www.pexels.com/de-de/foto/landschaft-erde-feld-dorf-4394323/; Traktor auf Feld. Heruntergeladen am 05.05.2022 \
+ii.) https://www.pexels.com/de-de/foto/blauer-roter-und-gruner-schal-der-manner-158011/; Frau; Heruntergeladen am 06.03.2022 \
+
+### Sonstiges \
+a) [Google R Styleguide](https://google.github.io/styleguide/Rguide.html)
+
+

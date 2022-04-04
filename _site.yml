@@ -1,0 +1,26 @@
+name: "Einstieg in R"
+navbar:
+  title: "Ist R etwas für mich?"
+  left:
+    - text: "Warum?"
+      href: index.html
+    - text: "R Grundlagen"
+      href: gettingstarted.html
+    - text: "Daten Import"
+      href: DataImport.html
+    - text: "Quellen"
+      href: Quellen.html 
+    - text: "Spickzettel"
+      href: Spickzettel.html
+  right: 
+    - icon: fa-envelope fa-lg
+      href: mailto:<eilers.marie@web.de>
+    - icon: fa-github fa-lg
+      href: https://github.com/MarieEilers/
+output:
+  html_document:
+    theme: "sandstone"
+    include: 
+      after_body: footer.html
+output.dir: "."
+  
