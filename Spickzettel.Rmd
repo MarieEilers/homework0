@@ -49,6 +49,7 @@ oder \
 - erste 6 Rows Datensatz anzeigen: `head(x)`\
 - Variablennamen: `names(x)`\
 - Überblick Dataframe: `glimpse()` \
+- Zusammenfassung: `summary(x)` \
 - Länge Vektor: `length(x$y)`\
 - Kategorien in Factors: `levels(x$y)` \
 - Identisch?: `identical(y1, y2)` \
